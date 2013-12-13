@@ -1,0 +1,5 @@
+gpcc
+___c
+cgpc
+c___
+ccgp
