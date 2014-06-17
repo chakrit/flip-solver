@@ -55,6 +55,18 @@ func (t Table) Clone() Table {
 	return clone
 }
 
+func (t Table) IsSolution() bool {
+	for _, row := range t {
+		for _, cell := range row {
+			if cell.Matchable() {
+				return false // There's still something matchable left.
+			}
+		}
+	}
+
+	return true
+}
+
 func (t Table) SwapY(x, y, destY int) {
 	t[y][x], t[destY][x] = t[destY][x], t[y][x]
 }
@@ -63,7 +75,11 @@ func (t Table) SwapX(y, x, destX int) {
 	t[y][x], t[y][destX] = t[y][destX], t[y][x]
 }
 
-func (t Table) ResolveMatches() int {
+func (t Table) Resolve() int {
+	return t.resolveMatches() + t.resolveGravity()
+}
+
+func (t Table) resolveMatches() int {
 	// Count matches using DP counting table.
 	matches := 0
 	const (
@@ -74,9 +90,9 @@ func (t Table) ResolveMatches() int {
 
 	direction := make([][]int, len(t))
 	counts := make([][]int, len(t))
-	for y := range t {
-		direction[y] = make([]int, len(t[0]))
-		counts[y] = make([]int, len(t[0]))
+	for y, row := range t {
+		direction[y] = make([]int, len(row))
+		counts[y] = make([]int, len(row))
 	}
 
 	for y := range t {
@@ -123,7 +139,7 @@ func (t Table) ResolveMatches() int {
 				counts[y][x] = counts[y][x-1] + 1
 				direction[y][x] = LEFT
 			} else {
-				counts[y][x] = 0
+				counts[y][x] = 1
 				direction[y][x] = NOWHERE
 			}
 		}
@@ -131,7 +147,7 @@ func (t Table) ResolveMatches() int {
 
 	// Resolve matches backwards from bottom-right.
 	for y := len(t) - 1; y >= 0; y-- {
-		for x := len(t[0]) - 1; x >= 0; x-- {
+		for x := len(t[y]) - 1; x >= 0; x-- {
 			count := counts[y][x]
 			if count < 3 {
 				continue
@@ -153,7 +169,7 @@ func (t Table) ResolveMatches() int {
 	return matches
 }
 
-func (t Table) ResolveGravity() int {
+func (t Table) resolveGravity() int {
 	movements := 0
 	for x := range t[0] {
 		// Find the first gravity from the bottom. There is always only a single pocket of
@@ -193,6 +209,7 @@ func (t Table) ResolveGravity() int {
 		}
 
 		// Apply gravity effect.
+		movements += 1
 		fallY = landY - objectY
 		for y := landY; y >= fallY; y-- {
 			fallingCell := t[y-fallY][x]

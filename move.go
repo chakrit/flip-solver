@@ -21,7 +21,7 @@ func NewMove(src Point, dest Point) Move {
 }
 
 func (m Move) String() string {
-	return m.Src.String() + " -> " + m.Dest.String()
+	return m.Src.String() + ">" + m.Dest.String()
 }
 
 func (m Move) Valid(table Table) bool {
@@ -29,7 +29,8 @@ func (m Move) Valid(table Table) bool {
 		for y := m.Src.Y; y <= m.Dest.Y; y++ {
 			cell := table[y][x]
 			switch cell {
-			case HOLLOW, LAND: return false
+			case HOLLOW, LAND:
+				return false
 			}
 		}
 	}
@@ -54,5 +55,19 @@ func (m Move) Apply(t Table) {
 
 	} else {
 		panic("Diagonal move is not supported!")
+	}
+
+	// log("before resolution:", t.String())
+	// n := t.Resolve()
+	// log("after resolution:", n, t.String())
+
+	// for n > 0 {
+	// 	log("before resolution:", t.String())
+	// 	n = t.Resolve()
+	// 	log("after resolution:", n, t.String())
+	// }
+
+	for t.Resolve() > 0 {
+		// until stable
 	}
 }

@@ -11,6 +11,7 @@ const (
 	TEAL       = 't'
 	BROWN      = 'b'
 	BEIGE      = 'g'
+	WHITE      = 'w'
 )
 
 func (c Cell) Matchable() bool {

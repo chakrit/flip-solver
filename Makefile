@@ -4,11 +4,13 @@ GO  := go
 PKG := .
 BIN := $(shell basename `pwd`)
 
-.PHONY: default all vet test deps lint
+ALL_PUZ := $(wildcard puzzles/*-*.table)
+ALL_SOL := $(patsubst %.table,%.sol,$(ALL_PUZ))
 
-default: run
+.PHONY: default vet test deps lint install
 
-all: install
+default: all
+
 install: deps
 	$(GO) install $(PKG)
 build: deps
@@ -25,6 +27,15 @@ clean:
 deps:
 	$(GO) get -d $(PKG)
 install:
-run: install
-	$(BIN)
+
+# puzzles
+%.sol: install
+%.sol: %.table
+	@echo
+	@echo solving $@...
+	@time $(BIN) $< | tee $@
+	@echo
+	@echo ---
+
+all: $(ALL_SOL)
 

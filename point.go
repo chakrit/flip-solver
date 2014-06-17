@@ -21,5 +21,5 @@ func (p Point) DistanceTo(another Point) int {
 }
 
 func (p Point) String() string {
-	return "{" + strconv.Itoa(p.X) + ", " + strconv.Itoa(p.Y) + "}"
+	return "(" + strconv.Itoa(p.X) + "," + strconv.Itoa(p.Y) + ")"
 }

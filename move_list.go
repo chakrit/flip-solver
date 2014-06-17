@@ -38,9 +38,13 @@ func GenerateMoveList(t Table) MoveList {
 }
 
 func (list MoveList) String() string {
+	if len(list) == 0 {
+		return ""
+	}
+
 	s := ""
 	for _, move := range list {
-		s += move.String() + "\n"
+		s += move.String() + "|"
 	}
-	return s
+	return s[:len(s)-1]
 }

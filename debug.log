@@ -1,0 +1,642 @@
+
+solving puzzles/2-1.sol...
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (0,2)>(2,2)|(0,2)>(3,2)
+    w     
+    b     
+w b # # b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(2,2)|(0,2)>(4,2)
+    w     
+    b     
+b w b # # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(2,2)|(1,2)>(3,2)
+    w     
+    b     
+# w b # b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(2,2)|(1,2)>(4,2)
+    w     
+    b     
+# b w b # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(2,2)|(2,2)>(4,2)
+    w     
+    b     
+# # b w b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(2,2)|(2,0)>(2,2)
+    b     
+    b     
+# # w w b 
+    #     
+    w     
+
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 2
+attempt: (0,2)>(2,2)|(2,0)>(2,3)
+    #     
+    b     
+# # b w b 
+    w     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 2
+count[2][2] = 1
+attempt: (0,2)>(2,2)|(2,0)>(2,4)
+    w     
+    #     
+# # b w b 
+    b     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 2
+count[2][2] = 1
+attempt: (0,2)>(2,2)|(2,1)>(2,3)
+    w     
+    #     
+# # b w b 
+    b     
+    w     
+
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 0
+attempt: (0,2)>(2,2)|(2,1)>(2,4)
+    w     
+    w     
+# # # w b 
+    b     
+    b     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(2,2)|(2,2)>(2,4)
+    w     
+    b     
+# # w w b 
+    #     
+    b     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(3,2)|(0,2)>(2,2)
+    w     
+    b     
+# # w b b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (0,2)>(3,2)|(0,2)>(4,2)
+    w     
+    b     
+b b # # w 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (0,2)>(3,2)|(1,2)>(3,2)
+    w     
+    b     
+w b # # b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(3,2)|(1,2)>(4,2)
+    w     
+    b     
+w b b # # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(3,2)|(2,2)>(4,2)
+    .     
+    w     
+w . b . # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(3,2)|(2,0)>(2,2)
+    #     
+    b     
+w # w b b 
+    #     
+    w     
+
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 1
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 0
+attempt: (0,2)>(3,2)|(2,0)>(2,3)
+    .     
+    #     
+w # # . . 
+    w     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 1
+count[2][2] = 0
+attempt: (0,2)>(3,2)|(2,0)>(2,4)
+    w     
+    #     
+w # # b b 
+    b     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 1
+count[2][2] = 0
+attempt: (0,2)>(3,2)|(2,1)>(2,3)
+    w     
+    #     
+w # # b b 
+    b     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (0,2)>(3,2)|(2,1)>(2,4)
+    w     
+    w     
+w # # b b 
+    #     
+    b     
+
+direction[4][2] = 0
+count[4][2] = 0
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(3,2)|(2,2)>(2,4)
+    w     
+    b     
+w # w b b 
+    #     
+    #     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(4,2)|(0,2)>(2,2)
+    w     
+    b     
+# w b # b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (0,2)>(4,2)|(0,2)>(3,2)
+    w     
+    b     
+# # w b b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (0,2)>(4,2)|(1,2)>(3,2)
+    w     
+    b     
+b # # w b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (0,2)>(4,2)|(1,2)>(4,2)
+    w     
+    b     
+b b # # w 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(4,2)|(2,2)>(4,2)
+    w     
+    b     
+b w b # # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(4,2)|(2,0)>(2,2)
+    #     
+    b     
+b w w # b 
+    #     
+    w     
+
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 1
+attempt: (0,2)>(4,2)|(2,0)>(2,3)
+    #     
+    #     
+b w b # b 
+    w     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 1
+count[2][2] = 0
+attempt: (0,2)>(4,2)|(2,0)>(2,4)
+    w     
+    #     
+b w # # b 
+    b     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 1
+count[2][2] = 0
+attempt: (0,2)>(4,2)|(2,1)>(2,3)
+    w     
+    #     
+b w # # b 
+    b     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (0,2)>(4,2)|(2,1)>(2,4)
+    w     
+    w     
+b w # # b 
+    #     
+    b     
+
+direction[4][2] = 0
+count[4][2] = 0
+count[3][2] = 0
+count[2][2] = 2
+attempt: (0,2)>(4,2)|(2,2)>(2,4)
+    w     
+    b     
+b w w # b 
+    #     
+    #     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (1,2)>(3,2)|(0,2)>(2,2)
+    w     
+    b     
+# w b # b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (1,2)>(3,2)|(0,2)>(3,2)
+    w     
+    b     
+# # w b b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (1,2)>(3,2)|(0,2)>(4,2)
+    w     
+    b     
+b # # w b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (1,2)>(3,2)|(1,2)>(4,2)
+    w     
+    b     
+b b # # w 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (1,2)>(3,2)|(2,2)>(4,2)
+    w     
+    b     
+b w b # # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (1,2)>(3,2)|(2,0)>(2,2)
+    #     
+    b     
+b w w # b 
+    #     
+    w     
+
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 1
+attempt: (1,2)>(3,2)|(2,0)>(2,3)
+    #     
+    #     
+b w b # b 
+    w     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 1
+count[2][2] = 0
+attempt: (1,2)>(3,2)|(2,0)>(2,4)
+    w     
+    #     
+b w # # b 
+    b     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 1
+count[2][2] = 0
+attempt: (1,2)>(3,2)|(2,1)>(2,3)
+    w     
+    #     
+b w # # b 
+    b     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (1,2)>(3,2)|(2,1)>(2,4)
+    w     
+    w     
+b w # # b 
+    #     
+    b     
+
+direction[4][2] = 0
+count[4][2] = 0
+count[3][2] = 0
+count[2][2] = 2
+attempt: (1,2)>(3,2)|(2,2)>(2,4)
+    w     
+    b     
+b w w # b 
+    #     
+    #     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+attempt: (1,2)>(4,2)|(0,2)>(2,2)
+    w     
+    b     
+w b b # # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 2
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (1,2)>(4,2)|(0,2)>(3,2)
+    .     
+    w     
+# . b . # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (1,2)>(4,2)|(0,2)>(4,2)
+    w     
+    b     
+# # w b b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (1,2)>(4,2)|(1,2)>(3,2)
+    w     
+    b     
+b # w b # 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 0
+attempt: (1,2)>(4,2)|(2,2)>(4,2)
+    w     
+    b     
+b b # # w 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+attempt: (1,2)>(4,2)|(2,0)>(2,2)
+    w     
+    b     
+b b w # # 
+    #     
+    w     
+
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 3
+direction[4][2] = 1
+count[4][2] = 3
+count[3][2] = 2
+count[2][2] = 1
+direction[4][2] = 0
+count[4][2] = 0
+count[3][2] = 0
+count[2][2] = 0
+attempt: (1,2)>(4,2)|(2,0)>(2,3)
+    .     
+    .     
+. . . # # 
+    .     
+    #     
+
+initial
+    w     
+    b     
+b # # w b 
+    #     
+    w     
+
+direction[4][2] = 0
+count[4][2] = 1
+count[3][2] = 0
+count[2][2] = 1
+(1,2)>(4,2)
+    w     
+    b     
+b b w # # 
+    #     
+    w     
+
+direction[4][2] = 1
+count[4][2] = 2
+count[3][2] = 1
+count[2][2] = 3
+direction[4][2] = 1
+count[4][2] = 3
+count[3][2] = 2
+count[2][2] = 1
+direction[4][2] = 0
+count[4][2] = 0
+count[3][2] = 0
+count[2][2] = 0
+(2,0)>(2,3)
+    .     
+    .     
+. . . # # 
+    .     
+    #     
+
+
+---

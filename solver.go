@@ -6,9 +6,11 @@ func Solve(table Table, depth int) MoveList {
 
 func solveCore(src Table, depth int, lastMove Move, moves, solutionSoFar MoveList) MoveList {
 	if depth == 0 {
-		// log(" ---- ")
-		// log(solutionSoFar.String(), src.String())
-		log("----", src.String())
+		// log("attempt: " + solutionSoFar.String(), src.String())
+
+		if src.IsSolution() {
+			return solutionSoFar
+		}
 		return EmptyMoveList
 	}
 
@@ -19,8 +21,6 @@ func solveCore(src Table, depth int, lastMove Move, moves, solutionSoFar MoveLis
 
 		table := src.Clone()
 		move.Apply(table)
-		for n := 1; n > 0; n = table.ResolveMatches() { }
-		for n := 1; n > 0; n = table.ResolveGravity() { }
 
 		solution := solveCore(table, depth-1, move, moves, append(solutionSoFar, move))
 		if len(solution) > 0 {
