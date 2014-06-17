@@ -42,12 +42,169 @@ func ReadTableFile(filename string) Table {
 	return table
 }
 
+func (t Table) Clone() Table {
+	// TODO: Convert this block to use the built-in copy()
+	clone := make(Table, len(t))
+	for y, row := range t {
+		clone[y] = make(Row, len(row))
+		for x := range row {
+			clone[y][x] = t[y][x]
+		}
+	}
+
+	return clone
+}
+
 func (t Table) SwapY(x, y, destY int) {
 	t[y][x], t[destY][x] = t[destY][x], t[y][x]
 }
 
 func (t Table) SwapX(y, x, destX int) {
 	t[y][x], t[y][destX] = t[y][destX], t[y][x]
+}
+
+func (t Table) ResolveMatches() int {
+	// Count matches using DP counting table.
+	matches := 0
+	const (
+		NOWHERE = iota
+		UP
+		LEFT
+	)
+
+	direction := make([][]int, len(t))
+	counts := make([][]int, len(t))
+	for y := range t {
+		direction[y] = make([]int, len(t[0]))
+		counts[y] = make([]int, len(t[0]))
+	}
+
+	for y := range t {
+		direction[y][0] = NOWHERE
+		if t[y][0].Matchable() {
+			counts[y][0] = 1
+		} else {
+			counts[y][0] = 0
+		}
+	}
+	for x := range t[0] {
+		direction[0][x] = NOWHERE
+		if t[0][x].Matchable() {
+			counts[0][x] = 1
+		} else {
+			counts[0][x] = 0
+		}
+	}
+
+	// Count matchabilities from top-left.
+	for y := 1; y < len(t); y++ {
+		for x := 1; x < len(t[y]); x++ {
+			cell := t[y][x]
+
+			if !cell.Matchable() {
+				counts[y][x] = 0
+				direction[y][x] = NOWHERE
+				continue
+			}
+
+			topCell, leftCell := t[y-1][x], t[y][x-1]
+			if topCell == cell && leftCell == cell {
+				if counts[y-1][x] > counts[y][x-1] {
+					counts[y][x] = counts[y-1][x] + 1
+					direction[y][x] = UP
+				} else {
+					counts[y][x] = counts[y][x-1] + 1
+					direction[y][x] = LEFT
+				}
+			} else if topCell == cell {
+				counts[y][x] = counts[y-1][x] + 1
+				direction[y][x] = UP
+			} else if leftCell == cell {
+				counts[y][x] = counts[y][x-1] + 1
+				direction[y][x] = LEFT
+			} else {
+				counts[y][x] = 0
+				direction[y][x] = NOWHERE
+			}
+		}
+	}
+
+	// Resolve matches backwards from bottom-right.
+	for y := len(t) - 1; y >= 0; y-- {
+		for x := len(t[0]) - 1; x >= 0; x-- {
+			count := counts[y][x]
+			if count < 3 {
+				continue
+			}
+
+			matches += 1
+			if direction[y][x] == UP {
+				for i := 0; i < count; i++ {
+					t[y-i][x] = LAND
+				}
+			} else {
+				for i := 0; i < count; i++ {
+					t[y][x-i] = LAND
+				}
+			}
+		}
+	}
+
+	return matches
+}
+
+func (t Table) ResolveGravity() int {
+	movements := 0
+	for x := range t[0] {
+		// Find the first gravity from the bottom. There is always only a single pocket of
+		// land in any single run so we should be fine.
+		landY, objectY, fallY := -1, -1, 0
+
+		for y := len(t) - 1; y >= 0; y-- {
+			switch t[y][x] {
+			case LAND:
+				landY = y
+			case HOLLOW:
+			default:
+				continue
+			}
+
+			break
+		}
+
+		if landY == -1 {
+			continue
+		}
+
+		for y := landY - 1; y >= 0; y-- {
+			switch t[y][x] {
+			case LAND:
+				continue
+			case HOLLOW:
+			default:
+				objectY = y
+			}
+
+			break
+		}
+
+		if objectY == -1 {
+			continue
+		}
+
+		// Apply gravity effect.
+		fallY = landY - objectY
+		for y := landY; y >= fallY; y-- {
+			fallingCell := t[y-fallY][x]
+			if fallingCell == HOLLOW {
+				break
+			}
+
+			t.SwapY(x, y, y-fallY)
+		}
+	}
+
+	return movements
 }
 
 func (t Table) String() string {

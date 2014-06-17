@@ -27,8 +27,9 @@ func (m Move) String() string {
 func (m Move) Valid(table Table) bool {
 	for x := m.Src.X; x <= m.Dest.X; x++ {
 		for y := m.Src.Y; y <= m.Dest.Y; y++ {
-			if table[y][x] == HOLLOW {
-				return false
+			cell := table[y][x]
+			switch cell {
+			case HOLLOW, LAND: return false
 			}
 		}
 	}
