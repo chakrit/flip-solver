@@ -6,37 +6,6 @@ import (
 	"os"
 )
 
-type Cell byte
-
-const (
-	HOLLOW Cell = '_'
-	CRATE       = 'c'
-	PINK        = 'p'
-	TEAL        = 't'
-	BROWN       = 'b'
-	BEIGE       = 'g'
-)
-
-// row
-type Row []Cell
-
-func NewRow(cells int) Row {
-	row := Row(make([]Cell, cells))
-	for i := range row {
-		row[i] = HOLLOW
-	}
-	return row[:]
-}
-
-func (row Row) String() string {
-	s := ""
-	for _, char := range row {
-		s += string(char) + " "
-	}
-	return s
-}
-
-// table
 type Table []Row
 
 func NewTable(rows int, columns int) *Table {

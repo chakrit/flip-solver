@@ -1,5 +1,5 @@
-gpcc
-___c
-cgpc
-c___
-ccgp
+gp**
+___*
+*gp*
+*___
+**gp
