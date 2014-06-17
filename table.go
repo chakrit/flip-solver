@@ -8,17 +8,17 @@ import (
 
 type Table []Row
 
-func NewTable(rows int, columns int) *Table {
+func NewTable(rows int, columns int) Table {
 	table := Table(make([]Row, rows))
 	for i := range table {
 		table[i] = NewRow(columns)
 	}
-	return &table
+	return table
 }
 
-func ReadTableFile(filename string) *Table {
-	file, err := os.Open(filename)
-	ensure(err)
+func ReadTableFile(filename string) Table {
+	file, e := os.Open(filename)
+	noError(e)
 
 	scanner := bufio.NewScanner(file)
 	lines := []string{}
@@ -26,36 +26,33 @@ func ReadTableFile(filename string) *Table {
 		lines = append(lines, scanner.Text())
 	}
 
-	ensure(file.Close())
+	noError(file.Close())
 
 	if len(lines) <= 0 {
 		panic(fmt.Errorf("no data in file: %v", filename))
 	}
 
 	table := NewTable(len(lines), len(lines[0]))
-	t := *table
 	for row, line := range lines {
 		for col, char := range line {
-			t[row][col] = Cell(char)
+			table[row][col] = Cell(char)
 		}
 	}
 
 	return table
 }
 
-func (table *Table) SwapY(x, y, destY int) {
-	t := *table
+func (t Table) SwapY(x, y, destY int) {
 	t[y][x], t[destY][x] = t[destY][x], t[y][x]
 }
 
-func (table *Table) SwapX(y, x, destX int) {
-	t := *table
+func (t Table) SwapX(y, x, destX int) {
 	t[y][x], t[y][destX] = t[y][destX], t[y][x]
 }
 
-func (table *Table) String() string {
+func (t Table) String() string {
 	s := ""
-	for _, row := range *table {
+	for _, row := range t {
 		s += row.String() + "\n"
 	}
 	return s

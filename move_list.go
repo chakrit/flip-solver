@@ -2,18 +2,18 @@ package main
 
 type MoveList []Move
 
-func GenerateMovesFromTable(table *Table) MoveList {
-	t := *table
+var EmptyMoveList = make(MoveList, 0)
+
+func GenerateMoveList(t Table) MoveList {
 	height := len(t)
 	width := len(t[0])
 
 	moves := []Move{}
-	yield := func(srcX, srcY, destX, destY int) Move {
-		src := Point{srcX, srcY}
-		dest := Point{destX, destY}
-		move := NewMove(src, dest)
-		moves = append(moves, move)
-		return move
+	yield := func(srcX, srcY, destX, destY int) {
+		move := NewMove(Point{srcX, srcY}, Point{destX, destY})
+		if move.Valid(t) {
+			moves = append(moves, move)
+		}
 	}
 
 	// horizontal moves

@@ -1,11 +1,22 @@
 package main
 
 type Move struct {
+	// Assume Dest is always to the bottom right.
 	Src  Point
 	Dest Point
 }
 
+var EmptyMove = Move{Point{0, 0}, Point{0, 0}}
+
 func NewMove(src Point, dest Point) Move {
+	s, d := src, dest
+	if s.X > d.X {
+		s.X, d.X = d.X, s.X
+	}
+	if s.Y > d.Y {
+		s.Y, d.Y = d.Y, s.Y
+	}
+
 	return Move{src, dest}
 }
 
@@ -13,9 +24,20 @@ func (m Move) String() string {
 	return m.Src.String() + " -> " + m.Dest.String()
 }
 
-func (m Move) ApplyTo(table *Table) {
+func (m Move) Valid(table Table) bool {
+	for x := m.Src.X; x <= m.Dest.X; x++ {
+		for y := m.Src.Y; y <= m.Dest.Y; y++ {
+			if table[y][x] == HOLLOW {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+func (m Move) Apply(t Table) {
 	// assume m.Src < m.Dest always
-	t := *table
 	dist := m.Src.DistanceTo(m.Dest) + 1
 	dist /= 2
 
