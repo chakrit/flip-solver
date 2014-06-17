@@ -1,26 +1,30 @@
 #!/usr/bin/make
 
+GO  := go
 PKG := .
 BIN := $(shell basename `pwd`)
 
 .PHONY: default all vet test deps lint
 
-default: test
+default: run
 
-all: build
+all: install
+install: deps
+	$(GO) install $(PKG)
 build: deps
-	./go build $(PKG)
+	$(GO) build $(PKG)
 lint: vet
 vet: deps
-	./go vet $(PKG)
+	$(GO) vet $(PKG)
 fmt:
-	./go fmt $(PKG)
+	$(GO) fmt $(PKG)
 test: deps
-	./go test $(PKG)
+	$(GO) test $(PKG)
 clean:
-	./go clean $(PKG)
+	$(GO) clean $(PKG)
 deps:
-	./go get -d $(PKG)
-run: all
-	./$(BIN)
+	$(GO) get -d $(PKG)
+install:
+run: install
+	$(BIN)
 
