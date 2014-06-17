@@ -11,7 +11,7 @@ func main() {
 	}
 
 	filename := flag.Arg(0)
-	table := ReadTableFile(filename)
+	table, movesCount := ReadTableFile(filename)
 
 	ticker := time.NewTicker(time.Minute)
 	go func() {
@@ -20,14 +20,14 @@ func main() {
 		}
 	}()
 
-	solution := Solve(table, 8)
+	solution := Solve(table, movesCount)
 	ticker.Stop()
 
 	if len(solution) == 0 {
 		panic("no solution for: " + filename)
 	}
 
-	log("initial", table.String())
+	log("\ninitial table:", table.String())
 	for _, move := range solution {
 		move.Apply(table)
 		log(move.String(), table.String())

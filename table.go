@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"bufio"
 	"fmt"
 	"os"
@@ -16,11 +17,18 @@ func NewTable(rows int, columns int) Table {
 	return table
 }
 
-func ReadTableFile(filename string) Table {
+func ReadTableFile(filename string) (Table, int) {
 	file, e := os.Open(filename)
 	noError(e)
 
 	scanner := bufio.NewScanner(file)
+	if !scanner.Scan() {
+		panic(fmt.Errorf("first line must be optimal move count."))
+	}
+
+	moves, e := strconv.Atoi(scanner.Text())
+	noError(e)
+
 	lines := []string{}
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
@@ -39,7 +47,7 @@ func ReadTableFile(filename string) Table {
 		}
 	}
 
-	return table
+	return table, moves
 }
 
 func (t Table) Clone() Table {
@@ -89,58 +97,71 @@ func (t Table) resolveMatches() int {
 	)
 
 	direction := make([][]int, len(t))
-	counts := make([][]int, len(t))
+	countUps := make([][]int, len(t))
+	countLefts := make([][]int, len(t))
+
 	for y, row := range t {
 		direction[y] = make([]int, len(row))
-		counts[y] = make([]int, len(row))
+		countUps[y] = make([]int, len(row))
+		countLefts[y] = make([]int, len(row))
 	}
 
-	for y := range t {
-		direction[y][0] = NOWHERE
-		if t[y][0].Matchable() {
-			counts[y][0] = 1
-		} else {
-			counts[y][0] = 0
-		}
+	same := func(y1, x1, y2, x2 int) bool { return t[y1][x1] == t[y2][x2] }
+	matchable := func(y, x int) bool { return t[y][x].Matchable() }
+	record := func(y, x, countUp, countLeft int) {
+		countUps[y][x] = countUp
+		countLefts[y][x] = countLeft
 	}
-	for x := range t[0] {
-		direction[0][x] = NOWHERE
-		if t[0][x].Matchable() {
-			counts[0][x] = 1
+
+	// Count top edge and left edge matchables.
+	if matchable(0, 0) {
+		record(0, 0, 1, 1)
+	} else {
+		record(0, 0, 0, 0)
+	}
+
+	for y := 1; y < len(t); y++ {
+		if matchable(y, 0) {
+			if same(y, 0, y-1, 0) {
+				record(y, 0, countUps[y-1][0]+1, 1)
+			} else {
+				record(y, 0, 1, 1)
+			}
 		} else {
-			counts[0][x] = 0
+			record(y, 0, 0, 0)
 		}
 	}
 
-	// Count matchabilities from top-left.
+	for x := 1; x < len(t[0]); x++ {
+		if matchable(0, x) {
+			if same(0, x, 0, x-1) {
+				record(0, x, 1, countLefts[0][x-1]+1)
+			} else {
+				record(0, x, 1, 1)
+			}
+		} else {
+			record(0, x, 0, 0)
+		}
+	}
+
+	// Count matchabilities from top-left downwards and rightwards.
 	for y := 1; y < len(t); y++ {
 		for x := 1; x < len(t[y]); x++ {
 			cell := t[y][x]
 
 			if !cell.Matchable() {
-				counts[y][x] = 0
-				direction[y][x] = NOWHERE
-				continue
-			}
-
-			topCell, leftCell := t[y-1][x], t[y][x-1]
-			if topCell == cell && leftCell == cell {
-				if counts[y-1][x] > counts[y][x-1] {
-					counts[y][x] = counts[y-1][x] + 1
-					direction[y][x] = UP
-				} else {
-					counts[y][x] = counts[y][x-1] + 1
-					direction[y][x] = LEFT
-				}
-			} else if topCell == cell {
-				counts[y][x] = counts[y-1][x] + 1
-				direction[y][x] = UP
-			} else if leftCell == cell {
-				counts[y][x] = counts[y][x-1] + 1
-				direction[y][x] = LEFT
+				record(y, x, 0, 0)
 			} else {
-				counts[y][x] = 1
-				direction[y][x] = NOWHERE
+				sameUp, sameLeft := same(y, x, y-1, x), same(y, x, y, x-1)
+				if sameUp && sameLeft {
+					record(y, x, countUps[y-1][x]+1, countLefts[y][x-1]+1)
+				} else if sameUp {
+					record(y, x, countUps[y-1][x]+1, 1)
+				} else if sameLeft  {
+					record(y, x, 1, countLefts[y][x-1]+1)
+				} else {
+					record(y, x, 1, 1)
+				}
 			}
 		}
 	}
@@ -148,18 +169,19 @@ func (t Table) resolveMatches() int {
 	// Resolve matches backwards from bottom-right.
 	for y := len(t) - 1; y >= 0; y-- {
 		for x := len(t[y]) - 1; x >= 0; x-- {
-			count := counts[y][x]
-			if count < 3 {
-				continue
-			}
+			ups := countUps[y][x]
+			lefts := countLefts[y][x]
 
-			matches += 1
-			if direction[y][x] == UP {
-				for i := 0; i < count; i++ {
+			if ups >= 3 {
+				matches += 1
+				for i := 0; i < ups; i++ {
 					t[y-i][x] = LAND
 				}
-			} else {
-				for i := 0; i < count; i++ {
+			}
+
+			if lefts >= 3 {
+				matches += 1
+				for i := 0; i < lefts; i++ {
 					t[y][x-i] = LAND
 				}
 			}

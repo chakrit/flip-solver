@@ -1,13 +1,11 @@
 package main
 
 func Solve(table Table, depth int) MoveList {
-	return solveCore(table, depth, EmptyMove, GenerateMoveList(table), make(MoveList, 0))
+	return solveCore(table, depth, NewCache(), EmptyMove, GenerateMoveList(table), make(MoveList, 0))
 }
 
-func solveCore(src Table, depth int, lastMove Move, moves, solutionSoFar MoveList) MoveList {
+func solveCore(src Table, depth int, cache Cache, lastMove Move, moves, solutionSoFar MoveList) MoveList {
 	if depth == 0 {
-		// log("attempt: " + solutionSoFar.String(), src.String())
-
 		if src.IsSolution() {
 			return solutionSoFar
 		}
@@ -19,10 +17,14 @@ func solveCore(src Table, depth int, lastMove Move, moves, solutionSoFar MoveLis
 			continue
 		}
 
-		table := src.Clone()
-		move.Apply(table)
+		table, ok := cache.Lookup(src, move)
+		if !ok {
+			table = src.Clone()
+			move.Apply(table)
+			cache.Record(src, move, table)
+		}
 
-		solution := solveCore(table, depth-1, move, moves, append(solutionSoFar, move))
+		solution := solveCore(table, depth-1, cache, move, moves, append(solutionSoFar, move))
 		if len(solution) > 0 {
 			return solution
 		}
