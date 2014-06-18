@@ -25,7 +25,7 @@ func solveCore(c *Context) MoveList {
 			c.cache.Record(c.table, move, table)
 		}
 
-		solution := solveCore(c.AppendSolution(table, move))
+		solution := solveCore(c.AppendStep(table, move))
 		if len(solution) > 0 {
 			return solution
 		}

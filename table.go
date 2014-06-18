@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+// TODO: Rewrite so all table-related information are actually on the Table type such as
+//   tiles count.
 type Table []Row
 
 func NewTable(rows int, columns int) Table {

@@ -20,7 +20,7 @@ func NewContext(table Table, depth int) *Context {
 	}
 }
 
-func (c *Context) AppendSolution(table Table, move Move) *Context {
+func (c *Context) AppendStep(table Table, move Move) *Context {
 	child := &Context{}
 	*child = *c
 	child.table = table
