@@ -25,7 +25,13 @@ func solveCore(c *Context) MoveList {
 			c.moveCache.Record(c.table, move, table)
 		}
 
-		if table.IsImpossible() {
+		possible, ok := c.stateCache.Lookup(table)
+		if !ok {
+			possible = !table.IsImpossible()
+			c.stateCache.Record(table, possible)
+		}
+
+		if !possible {
 			continue
 		}
 

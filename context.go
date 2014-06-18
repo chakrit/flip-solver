@@ -8,6 +8,7 @@ type Context struct {
 	solution      MoveList
 
 	moveCache     MoveCache
+	stateCache    StateCache
 }
 
 func NewContext(table Table, depth int) *Context {
@@ -19,6 +20,7 @@ func NewContext(table Table, depth int) *Context {
 		solution: EmptyMoveList,
 
 		moveCache: NewMoveCache(),
+		stateCache: NewStateCache(),
 	}
 }
 
