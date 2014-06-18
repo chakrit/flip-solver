@@ -77,6 +77,30 @@ func (t Table) IsSolution() bool {
 	return true
 }
 
+// TODO: We can cache this.
+func (t Table) IsImpossible() bool {
+	tiles := make(map[Cell]int, 8)
+	for _, row := range t {
+		for _, cell := range row {
+			tiles[cell] += 1
+		}
+	}
+
+	for cell, count := range tiles {
+		if !cell.Matchable() {
+			continue
+		}
+
+		// Having only 1 or 2 cells left of a color means it's no longer possible to
+		// eliminate those colors.
+		if count == 1 || count == 2 {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (t Table) SwapY(x, y, destY int) {
 	t[y][x], t[destY][x] = t[destY][x], t[y][x]
 }
