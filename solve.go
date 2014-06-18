@@ -18,11 +18,11 @@ func solveCore(c *Context) MoveList {
 			continue
 		}
 
-		table, ok := c.cache.Lookup(c.table, move)
+		table, ok := c.moveCache.Lookup(c.table, move)
 		if !ok {
 			table = c.table.Clone()
 			move.Apply(table)
-			c.cache.Record(c.table, move, table)
+			c.moveCache.Record(c.table, move, table)
 		}
 
 		if table.IsImpossible() {

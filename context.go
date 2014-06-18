@@ -3,20 +3,22 @@ package main
 type Context struct {
 	table         Table
 	depth         int
-	cache         Cache
 	lastMove      Move
 	possibleMoves []Move
 	solution      MoveList
+
+	moveCache     MoveCache
 }
 
 func NewContext(table Table, depth int) *Context {
 	return &Context{
 		table: table,
 		depth: depth,
-		cache: NewCache(),
 		lastMove: EmptyMove,
 		possibleMoves: GenerateMoveList(table),
 		solution: EmptyMoveList,
+
+		moveCache: NewMoveCache(),
 	}
 }
 
